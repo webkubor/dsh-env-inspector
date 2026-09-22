@@ -1,7 +1,7 @@
 {
   "name": "@dsh-plugins/dsh-env-inspector",
   "version": "0.1.0",
-  "description": "DSH 环境自检：让读者看到自己电脑装了什么 —— 系统/架构、shell/工具链、DSH 插件、cs skills、kyvault 秘钥是否存在。零运行时依赖，不联网、不展示明文秘钥。",
+  "description": "DSH 环境自检与端口大屏：零外部依赖洞察系统架构、CLI 工具链、DSH 插件生态、模型与环境凭据就绪状态及活跃监听端口，支持端口安全释放。零联网、零私有凭据泄露。",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
