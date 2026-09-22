@@ -2,6 +2,47 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.0] - 2026-09-22
+
+### ✨ 扩展信息来源 + 让小白用户放心
+
+#### 广义 AI CLI 工具链（新）
+- **独立 AiToolsCard**：跟 CliCard 区分，专门列 aider / cursor / continue / cody-cli /
+  tabby / codestral / opencode / goose / cline / lm-studio / ollama 共 11 款广 AI 工具。
+- **不重复**：普通 CLI 卡已有 `codex / claude / agy`，AiToolsCard 故意不重列。
+- 渲染样式复用 `dsh-env-cli-grid` + `dsh-env-cli-item`，跟 CliCard 视觉一致。
+
+#### 硬件概况卡片（新，仅 macOS）
+- 走 `/usr/sbin/system_profiler -json SPDisplaysDataType SPHardwareDataType`。
+- 字段：显示器数（+ main 屏标志）、显卡数、物理内存容量、机型代号、macOS 版本。
+- **不暴露 fingerprint**：型号字符串 / 序列号 / Hardware UUID 一律**不展示**——测试断言 grep
+  `serial|uuid` 都命中不到。
+- 非 macOS 平台返 `{ ok: false }`，UI 显示 "硬件探测未启用"。
+
+#### 一键复制完整诊断 + 信任提示（新）
+- 在 grid 下方加 `DiagnosticCopyBar`：📋 复制完整诊断按钮 + 「本机不上传、只你看」提示文案。
+- **结构化 JSON 输出**：精简字段名（`{n, ok, v}` 而不是 `{name, ok, version}`），不包含 token 明文。
+- **绝不离开本机**：`navigator.clipboard.writeText` 写到本机剪贴板，不发任何 fetch。
+- 兼容老浏览器（`document.execCommand('copy')` fallback）。
+
+### 内部
+
+- `lib/index.js` 加 `probeAiTools()` + `probeHardware()` 两个纯本地探测函数；两者均 fail-open。
+- `lib/client.js` 加 `AiToolsCard` / `HardwareCard` / `DiagnosticCopyBar` 三个组件；
+  复用 0.1.1 已有的 `dsh-env-card-*` 样式 + `dsw-alias-*` 主题变量。
+- LOCALES 加 14 条（中英各 7 条：aiSection / aiInstalled / aiMissing / hardwareSection /
+  hardwareNotAvailable / displaysLabel / gpusLabel / cpuLabel / osLabel / memSlotsLabel /
+  copyFullDiagnostic / copiedDiagnostic / trustNote）。
+- 27 个单测全过（含新加的 probeHardware 平台门、probeHardware 不暴露 fingerprint、
+  DiagnosticCopyBar JSON 清洗）。
+
+### 不在 0.2.0 范围
+
+- 浏览器探测（Chrome / Safari / Firefox / Arc / Edge / Brave 是否装）：0.2.0 还没做；用 `ls
+  /Applications` 检测本地 Mac，但 owner 答 "不需要"所以留 0.3.0。
+- 磁盘 / 挂载点：同原因，0.3.0。
+- 端口全网监听（`0.0.0.0`）警告：0.1.1 已做，不在本版。
+
 ## [0.1.1] - 2026-09-22
 
 ### ✨ UI 体验升级：缓存秒开 + 全家桶互导矩阵 + GEO 优化
