@@ -158,3 +158,56 @@ test('UI 渲染：面板展开时正确渲染活跃监听端口 (PortsSection)',
 	// 验证高位端口收拢提示
 	assert.ok(portSectionJson.includes('portsEphemeral'), '高位端口应作为动态端口收拢提示')
 })
+
+test('UI 渲染：全屏 Tab 独立视图正确渲染 Hero KPI 与卡片网格', () => {
+	const mockData = {
+		system: { os: 'macOS', arch: 'arm64', hostname: 'my-mac', cpu: 'Apple M3 Pro', memFreeGB: 4.5, memTotalGB: 18, uptimeMin: 120, pathDirs: 15 },
+		cli: [{ name: 'git', ok: true, version: '2.40.0' }, { name: 'docker', ok: false, version: null }],
+		ports: [
+			{ port: 3080, command: 'node', pid: 1000, host: '127.0.0.1', isWildcard: false },
+			{ port: 8080, command: 'caddy', pid: 2000, host: '*', isWildcard: true },
+			{ port: 52000, command: 'chrome', pid: 3000, host: '127.0.0.1', isWildcard: false }
+		],
+		plugins: [{ profile: 'web', plugin: 'dsh-context', version: '0.54.2' }],
+		envKeys: [{ name: 'OPENAI_API_KEY', configured: true }, { name: 'ANTHROPIC_API_KEY', configured: false }],
+		kyvault: [{ name: 'secret://openai/key' }],
+		network: { interfaces: [{ name: 'en0', address: '192.168.1.100', family: 4 }] }
+	}
+
+	let ViewComponent = null
+	const React = createReact(mockData, false)
+	const exports = pluginDefinition.factory((name) => (name === 'react' ? React : {}))
+
+	exports.apply({
+		effect: (fn) => fn(),
+		locale: { register: () => {}, bind: () => (key) => key },
+		slots: {
+			inject: (_, fn) => fn(),
+			register: (config, comp) => {
+				if (config.name === 'conversation.view') ViewComponent = comp
+			}
+		}
+	})
+
+	assert.ok(ViewComponent, '必须能取得 conversation.view 注册的组件')
+	const vdom = ViewComponent({ t: (k) => k })
+	assert.equal(vdom.props.className, 'dsh-env-inspector__view-container')
+
+	const json = JSON.stringify(vdom)
+	// 验证 Hero KPI
+	assert.ok(json.includes('dsh-env-stats-row'), '必须渲染顶部 4 KPI 容器')
+	assert.ok(json.includes('1 / 2'), 'KPI 应体现 1 / 2 CLI')
+	assert.ok(json.includes('2 个主要服务'), 'KPI 应体现 2 个主要端口服务')
+
+	// 验证双列网格与卡片
+	assert.ok(json.includes('dsh-env-grid'), '必须渲染双列卡片网格')
+	assert.ok(json.includes('dsh-env-port-grid'), '必须渲染端口网格')
+	assert.ok(json.includes(':3080'), '必须渲染 3080 端口')
+	assert.ok(json.includes(':8080'), '必须渲染 8080 端口')
+	assert.ok(json.includes('dsh-env-cli-grid'), '必须渲染 CLI 网格')
+	assert.ok(json.includes('git'), 'CLI 卡片应包含 git')
+	assert.ok(json.includes('Apple M3 Pro'), '系统卡片应包含 CPU 信息')
+	assert.ok(json.includes('OPENAI_API_KEY'), '凭证卡片应包含环境变量')
+	assert.ok(json.includes('secret://openai/key'), '凭证卡片应包含 Kyvault 引用')
+	assert.ok(json.includes('dsh-context'), '插件与网络卡片应包含已装插件')
+})
