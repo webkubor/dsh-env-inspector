@@ -13,7 +13,7 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 /** 内存复刻 AI 工具探测的列表（与 lib/index.js probeAiTools 同步）。 */
-const AI_TOOLS = ['aider', 'cursor', 'continue', 'cody-cli', 'tabby', 'codestral', 'opencode', 'goose', 'cline', 'lm-studio', 'ollama']
+const AI_TOOLS = ['codex', 'gemini', 'claude', 'opencode', 'agy', 'aider', 'cursor', 'continue', 'cody-cli', 'tabby', 'codestral', 'goose', 'cline', 'lm-studio', 'ollama']
 
 /** 内存复刻硬件探测的平台门（与 lib/index.js probeHardware 同步）。 */
 function probeHardwareStub(platformValue) {
@@ -21,13 +21,13 @@ function probeHardwareStub(platformValue) {
 	return { ok: true, displays: [{ resolution: '2560×1440', main: true }], gpus: 2, memorySlots: '16 GB' }
 }
 
-test('probeAiTools 列表里包含 owner 0.1.1 已经用的 codex/claude/agy 之外的广 AI CLI', () => {
-	// 注意：probeCliTools 已经有 codex/claude/agy，probeAiTools 不能重复
+test('probeAiTools 覆盖常规 AI CLI，并与通用 CLI 分类隔离', () => {
+	for (const tool of ['codex', 'gemini', 'claude', 'opencode']) assert.ok(AI_TOOLS.includes(tool))
 	for (const tool of AI_TOOLS) {
 		assert.ok(typeof tool === 'string' && tool.length > 0, `${tool} 是合法名字`)
 	}
 	// 必须**不重复**普通 CLI 列表
-	const cliTools = ['node', 'npm', 'pnpm', 'yarn', 'git', 'cs', 'docker', 'mise', 'brew', 'codex', 'claude', 'agy']
+	const cliTools = ['node', 'npm', 'pnpm', 'yarn', 'git', 'cs', 'docker', 'mise', 'brew']
 	for (const aiTool of AI_TOOLS) {
 		assert.ok(!cliTools.includes(aiTool), `${aiTool} 不应在 CLI 列表里（避免重复）`)
 	}

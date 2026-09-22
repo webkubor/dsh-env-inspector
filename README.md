@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>看清你的电脑装了什么，一键释放残留占用的开发端口。</strong><br>
-  DeepSeek Harness (DSH) 环境自检与端口运维插件 —— 现代卡片仪表盘，零外部依赖，不联网，绝不展示秘钥明文。
+  DeepSeek Harness (DSH) 环境自检与端口运维插件 —— 现代卡片仪表盘，零运行时依赖；网络出口检测仅在用户点击时发生，绝不展示秘钥明文。
 </p>
 
 <p align="center">
@@ -57,7 +57,9 @@
 
 ### 2. 🛠️ 命令行工具链与版本嗅探
 双列黑曜石圆角卡片，实时探测 12 款常见开发工具的安装与版本状态：
-- `node` / `npm` / `pnpm` / `yarn` / `git` / `cs` / `docker` / `mise` / `brew` / `codex` / `claude` / `agy`
+- 基础 CLI：`node` / `npm` / `pnpm` / `yarn` / `git` / `cs` / `docker` / `mise` / `brew`
+- AI CLI：`codex` / `gemini` / `claude` / `opencode` / `agy`，另含常见 AI IDE 与本地模型工具
+- 语言运行时：`python3` / `go` / `rustc`，只展示成功读取到版本的已安装运行时
 
 ### 3. 🔐 AI 模型与开发凭据（零明文、零私有泄露）
 - **高低层级分明**：自动提炼并翡翠绿高亮已配置生效的模型能力（如 DeepSeek、MiniMax 等）；
@@ -66,7 +68,7 @@
 
 ### 4. 🧩 扩展插件与网络接口全览
 - 自动列出当前 Web / Local profile 下加载的 DSH 扩展插件及其实际生效版本；
-- 展示本机局域网 IPv4 / IPv6 网卡接口地址，免去频繁查 `ifconfig` 的繁琐。
+- 区分展示局域网 IP、公网出口 IP，并标出是否检测到显式代理配置；公网出口 IP 只在用户点击后检测。
 
 ---
 
@@ -109,7 +111,7 @@ dsh plugin add @dsh-plugins/dsh-env-inspector
 ## 🛡️ 架构与安全承诺
 
 - **零运行时依赖**：代码完全基于 Node.js 原生 API 与纯 React 构建，无任何第三方三方包膨胀；
-- **不联网**：全部探测均在本地同一台机器上执行，绝不向外部任何网络服务上报数据；
+- **默认不联网**：本地自检不访问外部服务；用户主动点击“检测出口 IP”时，浏览器才向公网 IP 服务发起一次请求；
 - **同源防护**：所有接口强制校验 `Sec-Fetch-Site: same-origin`，彻底杜绝恶意网页跨站探测。
 
 ---

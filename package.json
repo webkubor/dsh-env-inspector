@@ -1,6 +1,6 @@
 {
   "name": "@dsh-plugins/dsh-env-inspector",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DSH 环境自检与端口大屏：零外部依赖洞察系统架构、CLI 工具链（含广义 AI CLI）、DSH 插件生态、模型与环境凭据就绪状态、活跃监听端口与硬件概况（屏幕/GPU/显示器），支持端口安全释放与一键复制完整诊断。零联网、零私有凭钥明文泄露。",
   "type": "module",
   "main": "lib/index.js",

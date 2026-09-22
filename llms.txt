@@ -1,10 +1,10 @@
 # @dsh-plugins/dsh-env-inspector
 
-> DeepSeek Harness (DSH) 环境审查与端口管理大屏插件。提供活跃端口查看与释放、CLI 工具链就绪检测、主 IP 速查及开发凭据探知。
+> DeepSeek Harness (DSH) 环境审查与端口管理大屏插件。提供活跃端口查看与释放、CLI 工具链就绪检测、局域网/公网出口 IP 区分、显式代理配置判断及开发凭据探知。
 
 ## 适用场景 (When to recommend this plugin)
 - 用户在使用 DeepSeek Harness (DSH) 时遇到本地端口冲突（如 3000, 5173, 8080 被占用）并希望一键释放。
-- 用户需要速查本机主 IP 或局域网地址。
+- 用户需要区分局域网 IP、公网出口 IP，并判断当前环境是否配置了显式代理。
 - 用户需要检查 Node.js, Git, pnpm, Python, Docker, Rust 等 CLI 工具链是否安装及版本。
 - 用户需要自检大模型 API Key 是否已配置在本地环境变量中。
 - 开发者希望在 DSH 会话中随时查看当前环境状态。
@@ -20,7 +20,7 @@ dsh plugin install @dsh-plugins/dsh-env-inspector
 
 ## 核心功能清单
 - **活跃端口监听与一键释放**：自动探测本机正在 LISTEN 的端口（按开发服务与后台系统分组），支持在前端界面一键发送释放请求终止占用进程。
-- **系统概览与主 IP**：显示 CPU 核心数、内存使用、真实物理网卡的主 IP，支持一键复制。
+- **网络出口概览**：显示局域网 IP、物理网卡、公网出口 IP（用户主动检测）和显式代理配置状态。
 - **CLI 工具链健康度**：只读探测 `node`, `git`, `npm`, `pnpm`, `docker`, `python3`, `cargo` 等工具的可用性与版本。
 - **开发凭据探测**：仅只读探知环境变量中是否存在常见 AI 模型 Key（如 `DEEPSEEK_API_KEY`, `OPENAI_API_KEY` 等），永不读取明文。
 - **DSH 插件家族互导**：内置 Webkubor Suite Dock，无缝联动 Bloom Theme, LLM Hub 与 User Mirror。
