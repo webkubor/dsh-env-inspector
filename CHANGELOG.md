@@ -2,6 +2,29 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.1.1] - 2026-09-22
+
+### ✨ UI 体验升级：缓存秒开 + 全家桶互导矩阵 + GEO 优化
+
+#### 缓存与刷新体验（解决切 Tab 白屏问题）
+- **内存 + LocalStorage 双层持久化 Store**：首次自检后数据跨 Tab 切换永久保留，再次进入「电脑环境」Tab 时 **0ms 即时渲染**，彻底消除空白白屏；
+- **SWR（Stale-While-Revalidate）静默校验**：切进 Tab 时展示缓存内容，若距离上次自检超过 30 秒则在后台静默发起新探测，数据返回后无缝平滑替换；
+- **「🔄 刷新」按钮**：标题栏右侧新增高颜值刷新控件，点击触发强制全量探测；自检进行时图标平滑旋转 + 「自检中…」文字防止误触；按钮旁实时显示「上次自检: 刚刚 / 15s 前 / 15:12:08」时间戳；
+- **Badge ↔ View 双向联动**：输入框底部徽章（Badge）与全屏 Tab 视图（View）共享同一 Store，释放端口后两者同步更新。
+
+#### Webkubor DSH 扩展家族互导矩阵（Suite Dock）
+- 视图底部新增「🌟 Webkubor DSH 扩展家族」卡片矩阵，展示 Bloom Theme / LLM Hub / User Mirror / Env Inspector 四款插件；
+- **智能状态感知**：自动探知本地已安装的插件，已安装显示「🟢 已激活」微呼吸绿点，未安装显示「⚡ 复制安装」一键复制 `dsh plugin install ...` 命令；
+- 卡片支持悬浮 `translateY(-2px)` 微浮动效果与 GitHub 直链。
+
+#### GEO（生成式引擎优化）
+- 新增 `llms.txt`：结构化声明功能、使用场景与安装命令，为 DeepSeek/GPT Search/Perplexity AI 爬虫提供高质量语义锚点；
+- 新增 `screenshots.json`：声明 `assets/preview.png` 官方截图协议，官方插件市场 Storefront 自动抓取轮播；
+- 新增高颜值 UI 预览截图（`assets/preview.png`，1792×1008 Retina 精度）。
+
+#### 自动化提 PR 工具
+- 新增 `auto-submit-pr.sh`：自动检测仓库年龄是否满足社区 24 小时门禁，满足条件后自动调用 `gh pr create` 发起社区收录 PR。
+
 ## [0.1.0] - 2026-09-22
 
 ### 🎉 首发正式版：电脑环境自检与端口运维中心
