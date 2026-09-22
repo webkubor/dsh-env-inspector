@@ -48,7 +48,8 @@ function createReact(initialReport, initialOpen = false) {
 			}
 			return [initialReport !== undefined ? initialReport : initial, () => {}]
 		},
-		useEffect: () => {}
+		useEffect: () => {},
+		useCallback: (fn) => fn
 	}
 }
 
