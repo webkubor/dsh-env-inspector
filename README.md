@@ -39,9 +39,9 @@
 ```sh
 # 1) 在 ~/.dsh/profiles/web/package.json 里加依赖（写本地路径）：
 cd ~/.dsh/profiles/web
-pnpm add /Users/webkubor/dev/dsh-plugins/dsh-env-inspector
+pnpm add ~/dev/dsh-plugins/dsh-env-inspector
 # 或者手动加 dependencies:
-#   "@dsh-plugins/dsh-env-inspector": "file:/Users/webkubor/dev/dsh-plugins/dsh-env-inspector"
+#   "@dsh-plugins/dsh-env-inspector": "file:../../dev/dsh-plugins/dsh-env-inspector"
 
 # 2) 把它加进 bundles —— 改 ~/.dsh/profiles/web/package.json 的 dsh.profile.bundles：
 #   "@dsh-plugins/dsh-env-inspector"
