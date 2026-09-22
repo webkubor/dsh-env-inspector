@@ -52,12 +52,11 @@ function createReact(initialReport, initialOpen = false) {
 	}
 }
 
-test('UI 注册契约：正确注册到 conversation.composer.bar slot', () => {
+test('UI 注册契约：正确注册到 conversation.view 与 conversation.composer.dock', () => {
 	assert.ok(pluginDefinition, 'client 脚本必须执行 __ModuleLoader__.load')
 	assert.equal(pluginDefinition.id, PKG_NAME)
 
-	let registeredSlot = null
-	let registeredComponent = null
+	const registeredSlots = []
 
 	const fakeCtx = {
 		effect: (fn) => fn(),
@@ -68,8 +67,7 @@ test('UI 注册契约：正确注册到 conversation.composer.bar slot', () => {
 		slots: {
 			inject: (slotName, fn) => fn(),
 			register: (config, comp) => {
-				registeredSlot = config.name
-				registeredComponent = comp
+				registeredSlots.push({ name: config.name, comp, id: config.id })
 			}
 		}
 	}
@@ -80,8 +78,13 @@ test('UI 注册契约：正确注册到 conversation.composer.bar slot', () => {
 	})
 
 	exports.apply(fakeCtx)
-	assert.equal(registeredSlot, 'conversation.composer.bar', '必须挂载在 composer.bar')
-	assert.ok(typeof registeredComponent === 'function', '必须导出有效的 React 徽章组件')
+	const viewSlot = registeredSlots.find((s) => s.name === 'conversation.view')
+	const dockSlot = registeredSlots.find((s) => s.name === 'conversation.composer.dock')
+
+	assert.ok(viewSlot, '必须注册 conversation.view 独立 Tab')
+	assert.ok(dockSlot, '必须注册 conversation.composer.dock 徽章')
+	assert.ok(typeof viewSlot.comp === 'function')
+	assert.ok(typeof dockSlot.comp === 'function')
 })
 
 test('UI 渲染：数据就绪时展示徽章与 CLI 计数', () => {
