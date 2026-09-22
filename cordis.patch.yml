@@ -1,0 +1,7 @@
+- insert:
+    # 插件本身仅暴露一条自检路由 + 一条调试路由，不依赖任何 host 服务；
+    # 失败时按 fail-open 处理（返回 { ok: false, error: '...' }），不影响 boot graph。
+    - id: dsh-env-inspector-self-check
+      name: '@dsh-plugins/dsh-env-inspector'
+      config:
+        # 不写 config：用插件 Config 默认值（见 lib/index.js export const Config）

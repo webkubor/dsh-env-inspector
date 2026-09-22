@@ -1,0 +1,64 @@
+{
+  "name": "@dsh-plugins/dsh-env-inspector",
+  "version": "0.1.0",
+  "description": "DSH 环境自检：让读者看到自己电脑装了什么 —— 系统/架构、shell/工具链、DSH 插件、cs skills、kyvault 秘钥是否存在。零运行时依赖，不联网、不展示明文秘钥。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "check": "for f in lib/*.js; do node --check \"$f\" || exit 1; done",
+    "test": "node --test",
+    "deploy": "rsync -av --delete lib/ ~/.dsh/profiles/web/node_modules/@dsh-plugins/dsh-env-inspector/lib/ && rsync -av package.json cordis.patch.yml README.md LICENSE ~/.dsh/profiles/web/node_modules/@dsh-plugins/dsh-env-inspector/"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "environment",
+    "diagnostics",
+    "self-check",
+    "system-info",
+    "pc-info"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webkubor/dsh-env-inspector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webkubor/dsh-env-inspector/issues"
+  },
+  "homepage": "https://github.com/webkubor/dsh-env-inspector#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "cordis.patch.yml",
+    "lib"
+  ]
+}
