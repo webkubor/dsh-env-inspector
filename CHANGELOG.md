@@ -4,30 +4,45 @@
 
 ## [0.1.0] - 2026-09-22
 
-### 新增
+### 🎉 首发正式版：电脑环境自检与端口运维中心
 
-- **composer 顶栏徽章** —— `conversation.composer.bar` slot 注册一个紧凑按钮
-  "电脑环境 · N / M CLI"，点开展开完整面板。
-- **系统段**：OS / arch / hostname / user / shell / Node / CPU / 内存 / uptime / PATH dirs。
-- **CLI 段**：探测 node / npm / pnpm / yarn / git / cs / docker / mise / brew / codex / claude / agy，
-  各自是否装 + 版本。
-- **DSH 插件段**：从 web / desktop-local profile 的 package.json 读 `@dsh-plugins/*` 和 `dsh-*` 依赖。
-- **环境变量 key 段**：探测常见 API key 是否已配 —— **只返存在性，不返值**。
-- **kyvault 段**：走 `cs kyvault list`，列出 `secret://platform/name` 引用 —— **只返引用名，不返值**。
-- **网络段**：本机网络接口列表（IPv4 / IPv6 / internal 标志）。
-- 零运行时依赖；所有探测走 node:os / node:child_process / node:fs / 读 PATH，**不联网**。
-- 完整自检载荷走 `GET /api/dsh-env-inspector/self-check`，同源 + GET/HEAD only，cache-control: no-store。
+`dsh-env-inspector` 是面向 DeepSeek Harness (DSH) 的现代本地开发环境自检与端口诊断插件。
+零外部运行时依赖、不联网、绝不泄露敏感秘钥明文。
 
-### 内部
+#### 1. 现代卡片式仪表盘 (Modern Card Dashboard)
+- **4 核心 Hero KPI 状态横条**：
+  - 操作系统与架构（如 `darwin 25.5.0 (arm64)`）；
+  - CLI 命令行工具链就绪率（如 `12 / 12` 100% 就绪）；
+  - 活跃端口统计（主要服务端口 + 动态高位端口）；
+  - Node 运行时与内存剩余容量（GB）。
+- **双列网格布局**：
+  - 深度适配 DSH 主题色与明暗自适应变量，带来通透清爽的视觉留白；
+  - 底部预留 200px 安全滚动区域，避免被固定的底部输入框（Composer）遮挡。
 
-- 新加 host-only 模块（`lib/index.js` + `lib/client.js`），无 build 步骤。
-- `cordis.patch.yml` 走单行 insert：`id: dsh-env-inspector-self-check`。
-- 插件仓独立 git init（按 `~/dev/dsh-plugins/README.md` 的"加一个新插件时"流程）。
-- 包名走过渡态 `@dsh-plugins/dsh-env-inspector`，等 `kubor` 工作号解冻后切无 scope `dsh-env-inspector`。
-- **0.1.0 不发 npm** —— 先在 web profile 用 `file:` 引用本地路径内部试用。
+#### 2. 活跃监听端口实时探测与一键释放 (Kill Process)
+- **端口实时嗅探**：深度兼容 macOS 守护进程最小 `PATH` 环境，解析 `lsof` 输出，自动识别通配监听（`*` / `0.0.0.0`）并以黄色微圆点警示；
+- **高位动态端口折叠抽屉**：默认收拢 49152+ 的动态高位端口，支持一键平滑展开与收起；
+- **一键释放（Kill）与坚固安全护栏**：
+  - 每个端口条目提供轻量级终止按钮（`×`）；
+  - **防自杀保护**：DSH 核心端口 `3080` 永久锁定并展示 `🔒` 标识，严禁终止；自身 Node 进程（`process.pid`）与系统核心 PID 强制受保护；
+  - **状态一致性核验**：终止前服务端重新核对目标 PID 确实正在监听目标端口，杜绝 PID 复用导致的误杀；
+  - **优雅退出两阶段**：先发送 `SIGTERM` 允许清理退出，未响应再发送 `SIGKILL` 彻底释放；
+  - **即时自检联动**：释放成功后无需刷新页面，界面自动即时触发重检，目标端口瞬间消失，KPI 同步递减。
 
-### 不在 0.1.0 范围
+#### 3. 工具链与凭证安全状态透视
+- **命令行工具链**：探测 12 款常见开发者工具（`node`, `npm`, `pnpm`, `yarn`, `git`, `cs`, `docker`, `mise`, `brew`, `codex`, `claude`, `agy`）的就绪状态与版本号；
+- **AI 凭证与密钥库**：核对 10 款常见大模型环境变量的存在性（仅返回布尔值），以及 `kyvault` 已收纳的 Secret 引用名，**严格杜绝输出任何密钥明文**；
+- **系统基础与网络接口**：清晰列出 Hostname、User、Shell、CPU 核心、开机时间、PATH 目录数及本机 IPv4 / IPv6 接口。
 
-- 导出"完整诊断包"按钮（zip / 文本）—— 后续看用户需求再加。
-- 顶部全局 status bar —— DSH 暂无原生 status bar slot，目前走 `conversation.composer.bar` 折中。
-- 自动检测更新 —— 不发 npm 就谈不上；0.2.0 再说。
+#### 4. 双挂载入口与工程化
+- 支持在顶部全屏 Tab（`conversation.view`）以及输入框底栏徽章（`conversation.composer.dock`）双向挂载；
+- 内置双语词典（中/英），开箱即用；
+- 具备 23 项全量自动化测试（单元测试、算法解析、安全拦截、真实子进程与针对 DSH 真实实例的 HTTP E2E 测试全部 100% 通过）。
+
+---
+
+## 🗺️ 后续落地计划 (Roadmap)
+
+- [ ] **端口占用进程来源深度解析**：识别常见本地开发框架（如 Vite、Next.js、Webpack、Flask、Docker 等）并展示专属图标与项目目录路径；
+- [ ] **历史端口占用快照对比**：支持记录开机基准端口，一键标记“新增的后台幽灵端口”；
+- [ ] **无 scope 迁移**：随 npm 维护账号解冻收敛，平滑迁移至官方命名 `dsh-env-inspector` 并保持向后兼容。
