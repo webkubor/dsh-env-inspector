@@ -71,3 +71,49 @@ test('fakeProbe: 空 stdout —— ok=true 但 version=null（命令存在但输
 	assert.equal(result.ok, true)
 	assert.equal(result.version, null)
 })
+
+import { parseListeningPorts } from '../lib/index.js'
+
+test('parseListeningPorts: 正常 lsof 解析、IPv4/IPv6 去重与升序排列', () => {
+	const mockStdout = `
+COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+mongod     1327 webkubor    9u  IPv4 0xa88cd853469b0fc6      0t0  TCP 127.0.0.1:27017 (LISTEN)
+mongod     1327 webkubor   10u  IPv6 0xbea85d84f08b1ac2      0t0  TCP [::1]:27017 (LISTEN)
+node      10528 webkubor   16u  IPv4 0x8374172fea33edb4      0t0  TCP 127.0.0.1:3080 (LISTEN)
+vite      91262 webkubor   18u  IPv4 0xd1fa660b3abad916      0t0  TCP 127.0.0.1:5173 (LISTEN)
+`
+	const ports = parseListeningPorts(mockStdout)
+	assert.equal(ports.length, 3, '27017 IPv4 与 IPv6 应去重')
+	assert.equal(ports[0].port, 3080)
+	assert.equal(ports[0].command, 'node')
+	assert.equal(ports[0].pid, 10528)
+	assert.equal(ports[0].isWildcard, false)
+
+	assert.equal(ports[1].port, 5173)
+	assert.equal(ports[1].command, 'vite')
+
+	assert.equal(ports[2].port, 27017)
+	assert.equal(ports[2].command, 'mongod')
+})
+
+test('parseListeningPorts: 识别通配监听 *:port 与 0.0.0.0:port', () => {
+	const mockStdout = `
+COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+node      43780 webkubor   14u  IPv6 0x3a7dc1de94f4be58      0t0  TCP *:4183 (LISTEN)
+server    50000 webkubor   14u  IPv4 0x3a7dc1de94f4be58      0t0  TCP 0.0.0.0:8080 (LISTEN)
+`
+	const ports = parseListeningPorts(mockStdout)
+	assert.equal(ports.length, 2)
+	assert.equal(ports[0].port, 4183)
+	assert.equal(ports[0].isWildcard, true)
+	assert.equal(ports[1].port, 8080)
+	assert.equal(ports[1].isWildcard, true)
+})
+
+test('parseListeningPorts: 畸形输出与空串防崩', () => {
+	assert.deepEqual(parseListeningPorts(''), [])
+	assert.deepEqual(parseListeningPorts('HEADER LINE ONLY'), [])
+	assert.deepEqual(parseListeningPorts('bad line without valid colon or port'), [])
+	assert.deepEqual(parseListeningPorts(null), [])
+})
+

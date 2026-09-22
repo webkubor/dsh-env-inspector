@@ -21,6 +21,7 @@
 | CLI 工具 | node / npm / pnpm / yarn / git / cs / docker / mise / brew / codex / claude / agy —— 各自是否装 + 版本 |
 | 已装 DSH 插件 | 从 web / desktop-local profile 的 package.json 读 `@dsh-plugins/*` 和 `dsh-*` 依赖 |
 | 已配环境变量 key | DeepSeek / OpenAI / Anthropic / Google / Moonshot / 智谱 / MiniMax / StepFun / CF / GitHub —— 各自**是否配**（不显示值）|
+| 活跃监听端口 | 本机 TCP 监听端口（lsof 探测，按服务端口/动态端口分流，标记全网监听与占用进程）|
 | kyvault 已存秘钥 | 走过 `cs kyvault list`，列出 `secret://platform/name` 引用 —— **不显示值** |
 | 网络接口 | 本机网络接口列表（IPv4 / IPv6 / internal 标志）|
 
