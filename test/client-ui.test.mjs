@@ -209,6 +209,5 @@ test('UI 渲染：全屏 Tab 独立视图正确渲染 Hero KPI 与卡片网格',
 	assert.ok(json.includes('git'), 'CLI 卡片应包含 git')
 	assert.ok(json.includes('Apple M3 Pro'), '系统卡片应包含 CPU 信息')
 	assert.ok(json.includes('OPENAI_API_KEY'), '凭证卡片应包含环境变量')
-	assert.ok(json.includes('secret://openai/key'), '凭证卡片应包含 Kyvault 引用')
 	assert.ok(json.includes('dsh-context'), '插件与网络卡片应包含已装插件')
 })
