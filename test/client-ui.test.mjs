@@ -34,6 +34,15 @@ globalThis.document = {
 
 await import('../lib/client.js')
 
+test('响应式卡片和 CLI 网格允许收缩，长版本号不会撑破边框', () => {
+	const client = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../lib/client.js'), 'utf8')
+	assert.ok(client.includes('minmax(min(100%,480px),1fr)'), '卡片网格在窄容器中不得保持超出容器的固定最小宽度')
+	assert.ok(client.includes('grid-template-columns:repeat(2,minmax(0,1fr))'), 'CLI 两列网格必须允许列宽收缩')
+	assert.ok(client.includes("'padding:18px 20px;min-width:0;"), '卡片 Grid 项必须允许收缩')
+	assert.ok(client.includes(".dsh-env-cli-name{font-weight:600;color:var(--dsw-alias-label-primary);display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}"), 'CLI 名称在空间不足时必须省略')
+	assert.ok(client.includes(".dsh-env-cli-ver{color:var(--dsw-alias-label-secondary);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}"), 'CLI 版本在空间不足时必须省略')
+})
+
 function createReact(initialReport, initialOpen = false) {
 	return {
 		createElement: (type, props, ...children) => {
