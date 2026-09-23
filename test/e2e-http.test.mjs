@@ -4,7 +4,21 @@ import { spawn, spawnSync } from 'node:child_process';
 
 const BASE_URL = 'http://127.0.0.1:3080';
 
-test('E2E HTTP: 针对本地 DSH 实例的安全拦截与真实端口释放', async () => {
+test('E2E HTTP: 针对本地 DSH 实例的安全拦截与真实端口释放', async (t) => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/dsh-env-inspector/self-check`, {
+            signal: AbortSignal.timeout(1000),
+            headers: { 'Sec-Fetch-Site': 'same-origin', 'Accept': 'application/json' }
+        });
+        if (!response.ok) {
+            throw new Error(`DSH 自检接口返回 HTTP ${response.status}`);
+        }
+    } catch (error) {
+        if (error.name !== 'TimeoutError' && error.cause?.code !== 'ECONNREFUSED') throw error;
+        t.skip('本地 DSH 服务未运行，跳过依赖真实实例的 E2E 测试');
+        return;
+    }
+
     // 1. 启动一个独立的临时子进程监听 48998
     const testPort = 48998;
     const childCode = `
