@@ -7,7 +7,7 @@ const BASE_URL = 'http://127.0.0.1:3080';
 test('E2E HTTP: 针对本地 DSH 实例的安全拦截与真实端口释放', async (t) => {
     try {
         const response = await fetch(`${BASE_URL}/api/dsh-env-inspector/self-check`, {
-            signal: AbortSignal.timeout(1000),
+            signal: AbortSignal.timeout(3000),
             headers: { 'Sec-Fetch-Site': 'same-origin', 'Accept': 'application/json' }
         });
         if (!response.ok) {

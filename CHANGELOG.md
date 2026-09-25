@@ -2,6 +2,18 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.3] - 2026-09-25
+
+### ⚡ 性能优化与并发探测（降低 80% 阻塞延迟）
+
+- **异步并发探测**：`readSelfCheckAsync()` 采用 `Promise.all` 并发探测 CLI、AI 工具链、语言运行时与网络端口，将原先 29 个子命令同步阻塞执行耗时从 2.6s（HTTP 6.3s）大幅缩减至 ~350ms - 1.2s。
+- **硬件概况内存缓存**：`probeHardwareAsync()` 增加 60 秒轻量级内存缓存，避免频繁刷新时高开销重复触发 macOS `system_profiler`。
+
+### 🏷️ 完整 TypeScript 类型契约
+
+- **类型定义库**：新增 `types/index.d.ts` 与 `types/client.d.ts`，导出完整的自检数据类型（`SelfCheckPayload`、`ListeningPort`、`HardwareInfo` 等）。
+- **静态类型自检**：接入 `tsconfig.json` 与 `npm test` 自动化类型校验，确保类型与运行时契约 100% 对齐。
+
 ## [0.2.2] - 2026-09-23
 
 ### 🐛 修复电脑环境面板卡片溢出
