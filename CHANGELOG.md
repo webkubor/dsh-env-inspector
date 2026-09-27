@@ -2,6 +2,14 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.4] - 2026-09-27
+
+### 📛 包装升级：补英文 README + 接入 README 门禁
+
+- **新增 `README.en.md`**（不是机翻，按英文技术写作习惯重写）；中文 README 首行加双语切换
+- 7 个徽章从 `flat-square` 换成 `for-the-badge`
+- 新增 `scripts/readme-gate.mjs`，挂在 `prepublishOnly` 上
+
 ## [0.2.3] - 2026-09-25
 
 ### ⚡ 性能优化与并发探测（降低 80% 阻塞延迟）

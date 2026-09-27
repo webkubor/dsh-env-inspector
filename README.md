@@ -6,17 +6,17 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@dsh-plugins/dsh-env-inspector"><img src="https://img.shields.io/npm/v/%40dsh-plugins%2Fdsh-env-inspector?style=flat-square&color=3fb950&logo=npm&label=npm" alt="npm" /></a>
-  <a href="https://www.npmjs.com/package/@dsh-plugins/dsh-env-inspector"><img src="https://img.shields.io/npm/dm/%40dsh-plugins%2Fdsh-env-inspector?style=flat-square&color=6d7f9c&label=downloads" alt="downloads" /></a>
-  <img src="https://img.shields.io/badge/DSH-%E2%89%A50.1.5--rc.2-4d6bfe?style=flat-square" alt="DSH" />
-  <img src="https://img.shields.io/badge/runtime_deps-0-5A9E6F?style=flat-square" alt="deps" />
-  <img src="https://img.shields.io/badge/license-MIT-777?style=flat-square" alt="MIT" />
+  <a href="https://www.npmjs.com/package/@dsh-plugins/dsh-env-inspector"><img src="https://img.shields.io/npm/v/%40dsh-plugins%2Fdsh-env-inspector?style=for-the-badge&color=3fb950&logo=npm&label=npm" alt="npm" /></a>
+  <a href="https://www.npmjs.com/package/@dsh-plugins/dsh-env-inspector"><img src="https://img.shields.io/npm/dm/%40dsh-plugins%2Fdsh-env-inspector?style=for-the-badge&color=6d7f9c&label=downloads" alt="downloads" /></a>
+  <img src="https://img.shields.io/badge/DSH-%E2%89%A50.1.5--rc.2-4d6bfe?style=for-the-badge" alt="DSH" />
+  <img src="https://img.shields.io/badge/runtime_deps-0-5A9E6F?style=for-the-badge" alt="deps" />
+  <img src="https://img.shields.io/badge/license-MIT-777?style=for-the-badge" alt="MIT" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/deepseek-ai/deepseek-harness"><img src="https://img.shields.io/badge/DeepSeek_Harness-Plugin-4d6bfe?style=flat-square" alt="DSH Plugin" /></a>
-  <a href="https://github.com/topics/dsh-plugin"><img src="https://img.shields.io/badge/topic-dsh--plugin-4d6bfe?style=flat-square" alt="dsh-plugin" /></a>
-  &nbsp;·&nbsp; <a href="CHANGELOG.md">更新日志</a>
+  <a href="https://github.com/deepseek-ai/deepseek-harness"><img src="https://img.shields.io/badge/DeepSeek_Harness-Plugin-4d6bfe?style=for-the-badge" alt="DSH Plugin" /></a>
+  <a href="https://github.com/topics/dsh-plugin"><img src="https://img.shields.io/badge/topic-dsh--plugin-4d6bfe?style=for-the-badge" alt="dsh-plugin" /></a>
+  &nbsp;·&nbsp; <a href="README.en.md">English</a> · <a href="CHANGELOG.md">更新日志</a>
 </p>
 
 <p align="center">
