@@ -74,19 +74,13 @@ Two-column rounded cards that detect 12 common developer tools and their version
 
 ## 📦 Install
 
-### Option A — via the DSH plugin manager (recommended)
+> Only Node.js is required — **no global dsh install**; upstream's official entry is `npx @deepseek-ai/dsh`. If dsh is installed globally, use `dsh` instead.
 
 ```bash
-dsh plugin add @dsh-plugins/dsh-env-inspector
+npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-env-inspector
 ```
 
-### Option B — via npm
-
-```bash
-npm i -g @dsh-plugins/dsh-env-inspector
-```
-
-Then restart DSH and open the **计算机环境 / Environment** tab.
+Add `@dsh-plugins/dsh-env-inspector` to `dsh.profile.bundles` in `~/.dsh/profiles/web/package.json`, then restart DSH (stop it and rerun `npx @deepseek-ai/dsh web`) and open the **计算机环境 / Environment** tab.
 
 ---
 

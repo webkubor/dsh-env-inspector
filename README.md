@@ -76,9 +76,13 @@
 
 ### 方式 A：通过 DSH 插件管理器安装（推荐）
 
+> 前提：装好 Node.js 即可，**无需全局安装 dsh** —— 官方入口就是 `npx @deepseek-ai/dsh`。已全局安装的可把它换成 `dsh`。
+
 ```bash
-dsh plugin add @dsh-plugins/dsh-env-inspector
+npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-env-inspector
 ```
+
+再把 `@dsh-plugins/dsh-env-inspector` 加进 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles` 数组，然后按下方重启 DSH。
 
 ### 方式 B：手动配置 Profile
 
@@ -87,7 +91,7 @@ dsh plugin add @dsh-plugins/dsh-env-inspector
 ```json
 {
   "dependencies": {
-    "@dsh-plugins/dsh-env-inspector": "^0.1.0"
+    "@dsh-plugins/dsh-env-inspector": "^0.2.4"
   },
   "dsh": {
     "profile": {
@@ -101,7 +105,9 @@ dsh plugin add @dsh-plugins/dsh-env-inspector
 
 执行安装并重启 DSH：
 ```bash
-~/.dsh/restart.sh
+npx @deepseek-ai/dsh plugin --profile web install
+# 结束当前 DSH 进程后重新运行
+npx @deepseek-ai/dsh web
 ```
 
 进入页面后，点击顶部导航栏中的 **「🖥️ 电脑环境」** Tab，即可开始使用。
@@ -130,10 +136,10 @@ dsh plugin add @dsh-plugins/dsh-env-inspector
 
 | 插件 | 领域 | 核心功能 | 快速安装 |
 | :--- | :--- | :--- | :--- |
-| [🎨 **dsh-bloom-theme**](https://github.com/webkubor/dsh-bloom-theme) | 主题美化 | 现代毛玻璃美学、暗黑/亮色自适应与 20+ 精选艺术壁纸 | `dsh plugin install @dsh-plugins/dsh-bloom-theme` |
-| [⚡ **dsh-llm-hub**](https://github.com/webkubor/dsh-llm-hub) | 智能路由 | 多模型厂商聚合、秒级切换与故障智能重试 | `dsh plugin install @dsh-plugins/dsh-llm-hub` |
-| [🪞 **dsh-user-mirror**](https://github.com/webkubor/dsh-mirror) | 角色记忆 | 用户数字画像、习惯偏好与记忆沉淀网络 | `dsh plugin install @dsh-plugins/dsh-user-mirror` |
-| [🖥️ **dsh-env-inspector**](https://github.com/webkubor/dsh-env-inspector) | 运行环境 | 活跃端口一键释放、CLI 工具链与开发凭据大屏 | `dsh plugin install @dsh-plugins/dsh-env-inspector` |
+| [🎨 **dsh-bloom-theme**](https://github.com/webkubor/dsh-bloom-theme) | 主题美化 | 现代毛玻璃美学、暗黑/亮色自适应与 20+ 精选艺术壁纸 | `npx @deepseek-ai/dsh plugin --profile web add dsh-bloom-theme` |
+| [⚡ **dsh-llm-hub**](https://github.com/webkubor/dsh-llm-hub) | 智能路由 | 多模型厂商聚合、秒级切换与故障智能重试 | `npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-llm-hub` |
+| [🪞 **dsh-user-mirror**](https://github.com/webkubor/dsh-mirror) | 角色记忆 | 用户数字画像、习惯偏好与记忆沉淀网络 | `npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-user-mirror` |
+| [🖥️ **dsh-env-inspector**](https://github.com/webkubor/dsh-env-inspector) | 运行环境 | 活跃端口一键释放、CLI 工具链与开发凭据大屏 | `npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-env-inspector` |
 
 ---
 
