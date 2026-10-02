@@ -2,7 +2,10 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { spawn, spawnSync } from 'node:child_process';
 
-const BASE_URL = 'http://127.0.0.1:3080';
+// 2026-10-02：宿主从「常驻 web 服务（3080）」换成「桌面端 app（19387）」后，
+// 这里写死的 3080 永远连不上 → 测试永远走 skip 分支，看着是绿的、其实**从没跑过**。
+// 端口改从环境变量取，默认桌面端的 19387。
+const BASE_URL = process.env.DSH_BASE_URL ?? 'http://127.0.0.1:19387';
 
 test('E2E HTTP: 针对本地 DSH 实例的安全拦截与真实端口释放', async (t) => {
     try {
@@ -10,7 +13,9 @@ test('E2E HTTP: 针对本地 DSH 实例的安全拦截与真实端口释放', as
             signal: AbortSignal.timeout(3000),
             headers: { 'Sec-Fetch-Site': 'same-origin', 'Accept': 'application/json' }
         });
-        if (!response.ok) {
+        // 401 = 宿主在跑但要认证（桌面端就是这样），这也说明**服务是活的**。
+        // 只认 2xx 会把健康的宿主判成故障（同一误判在 ~/.dsh/restart.sh 里记过一次）。
+        if (!response.ok && response.status !== 401) {
             throw new Error(`DSH 自检接口返回 HTTP ${response.status}`);
         }
     } catch (error) {
