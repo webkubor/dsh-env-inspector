@@ -79,14 +79,19 @@
 > 前提：装好 Node.js 即可，**无需全局安装 dsh** —— 官方入口就是 `npx @deepseek-ai/dsh`。已全局安装的可把它换成 `dsh`。
 
 ```bash
-npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-env-inspector
+npx @deepseek-ai/dsh plugin --profile <你的 profile> add @dsh-plugins/dsh-env-inspector
 ```
 
-再把 `@dsh-plugins/dsh-env-inspector` 加进 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles` 数组，然后按下方重启 DSH。
+再把 `@dsh-plugins/dsh-env-inspector` 加进该 profile 的 `package.json` 的 `dsh.profile.bundles` 数组，然后按下方重启 DSH。
+
+> **桌面端用户**：官方 Electron 端独占 `desktop` profile，命令行对它做插件操作会被拒
+> （`profile "desktop" is managed exclusively by the Electron application`）——
+> 请在应用内的**插件管理**里安装与升级。下面的 CLI / 手改配置两种写法只适用于自建 profile。
+
 
 ### 方式 B：手动配置 Profile
 
-在你的 DSH profile 配置（如 `~/.dsh/profiles/web/package.json`）中添加依赖与 bundle 声明：
+在你的 DSH profile 配置（如 `~/.dsh/profiles/<你的 profile>/package.json`）中添加依赖与 bundle 声明：
 
 ```json
 {
@@ -105,9 +110,8 @@ npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-env-inspector
 
 执行安装并重启 DSH：
 ```bash
-npx @deepseek-ai/dsh plugin --profile web install
-# 结束当前 DSH 进程后重新运行
-npx @deepseek-ai/dsh web
+npx @deepseek-ai/dsh plugin --profile <你的 profile> install
+# 然后重启该 profile 的 DSH（桌面端是退出并重开 app；自建 profile 重新跑 dsh <profile>）
 ```
 
 进入页面后，点击顶部导航栏中的 **「🖥️ 电脑环境」** Tab，即可开始使用。
@@ -146,7 +150,8 @@ npx @deepseek-ai/dsh web
 一行装齐（只需 Node.js），装完重启 DSH 即可：
 
 ```bash
-npx -y @deepseek-ai/dsh plugin --profile web add dsh-bloom-theme @dsh-plugins/dsh-llm-hub @dsh-plugins/dsh-user-mirror @dsh-plugins/dsh-env-inspector && node -e 'const f=(process.env.DSH_HOME||require("os").homedir()+"/.dsh")+"/profiles/web/package.json",p=require(f),b=p.dsh.profile.bundles;for(const n of Object.keys(p.dependencies))if(/^(dsh-bloom-theme|@dsh-plugins\/)/.test(n)&&!b.includes(n))b.push(n);require("fs").writeFileSync(f,JSON.stringify(p,null,2)+"\n")'
+PROFILE=<你的 profile>
+npx -y @deepseek-ai/dsh plugin --profile "$PROFILE" add dsh-bloom-theme @dsh-plugins/dsh-llm-hub @dsh-plugins/dsh-user-mirror @dsh-plugins/dsh-env-inspector && PROFILE="$PROFILE" node -e 'const f=(process.env.DSH_HOME||require("os").homedir()+"/.dsh")+"/profiles/"+process.env.PROFILE+"/package.json",p=require(f),b=p.dsh.profile.bundles;for(const n of Object.keys(p.dependencies))if(/^(dsh-bloom-theme|@dsh-plugins\/)/.test(n)&&!b.includes(n))b.push(n);require("fs").writeFileSync(f,JSON.stringify(p,null,2)+"\n")'
 ```
 
 ---

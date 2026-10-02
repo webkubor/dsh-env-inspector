@@ -77,10 +77,14 @@ Two-column rounded cards that detect 12 common developer tools and their version
 > Only Node.js is required — **no global dsh install**; upstream's official entry is `npx @deepseek-ai/dsh`. If dsh is installed globally, use `dsh` instead.
 
 ```bash
-npx @deepseek-ai/dsh plugin --profile web add @dsh-plugins/dsh-env-inspector
+npx @deepseek-ai/dsh plugin --profile <your-profile> add @dsh-plugins/dsh-env-inspector
 ```
 
-Add `@dsh-plugins/dsh-env-inspector` to `dsh.profile.bundles` in `~/.dsh/profiles/web/package.json`, then restart DSH (stop it and rerun `npx @deepseek-ai/dsh web`) and open the **计算机环境 / Environment** tab.
+> **Desktop app users**: the official Electron app owns the `desktop` profile exclusively — the CLI
+> refuses plugin operations on it (`profile "desktop" is managed exclusively by the Electron application`).
+> Install and update from the plugin manager inside the app; the CLI form above is for self-managed profiles.
+
+Add `@dsh-plugins/dsh-env-inspector` to `dsh.profile.bundles` in `~/.dsh/profiles/<your-profile>/package.json`, then restart the DSH desktop app (quit and reopen it) and open the **计算机环境 / Environment** tab.
 
 ---
 
