@@ -34,7 +34,7 @@
     "prepublishOnly": "npm run check && npm test && node scripts/prepublish-gate.mjs && node scripts/readme-gate.mjs",
     "check": "for f in lib/*.js; do node --check \"$f\" || exit 1; done",
     "test": "node --test",
-    "deploy": "rsync -av --delete lib/ ~/.dsh/profiles/web/node_modules/@dsh-plugins/dsh-env-inspector/lib/ && rsync -av types package.json cordis.patch.yml README.md LICENSE ~/.dsh/profiles/web/node_modules/@dsh-plugins/dsh-env-inspector/"
+    "deploy": "rsync -av --delete lib/ ~/.dsh/profiles/${DSH_PROFILE:-desktop}/node_modules/@dsh-plugins/dsh-env-inspector/lib/ && rsync -av types package.json cordis.patch.yml README.md LICENSE ~/.dsh/profiles/${DSH_PROFILE:-desktop}/node_modules/@dsh-plugins/dsh-env-inspector/"
   },
   "keywords": [
     "dsh",
