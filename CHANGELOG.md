@@ -2,6 +2,13 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.7](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.6...v0.2.7) (2026-10-12)
+
+
+### 🐛 Bug Fixes
+
+* **release:** 以 mergeable_state 为门，不再等所有 check 跑完 ([6472908](https://github.com/webkubor/dsh-env-inspector/commit/6472908d21601185f92d7336f74369829d9f7d6e))
+
 ## [0.2.6](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.5...v0.2.6) (2026-10-12)
 
 
