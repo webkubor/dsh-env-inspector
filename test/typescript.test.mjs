@@ -23,8 +23,20 @@ test('TypeScript definitions: package.json exports.types configured', () => {
 })
 
 test('TypeScript definitions: tsc --noEmit check passes with 0 errors', () => {
-	const tscBin = '/Users/webkubor/dev/dsh-plugins/dsh-bloom-theme/node_modules/.bin/tsc'
-	if (!fs.existsSync(tscBin)) return
+	// ⚠️ 2026-10-12 修：这里原来写死**另一个仓库**的绝对路径
+	// （../dsh-bloom-theme/node_modules/.bin/tsc），而且「找不到就直接 return」。
+	// 两个后果叠在一起：本机因为 bloom 的 node_modules 恰好在，所以这条测试是真跑的；
+	// CI 上那个路径不存在 → 静默 return → 永远绿。而类型定义恰恰是本插件对外承诺的
+	// 契约（exports.types 指向它），最需要校验的地方反而没有校验。
+	//
+	// 改法：typescript 变成本包自己的 devDependency，tsc 从本地 node_modules 解析，
+	// 解析不到就**报错**而不是静默跳过 —— 静默 skip 是这份测试库反复出问题的根源。
+	const tscBin = path.join(root, 'node_modules', '.bin', 'tsc')
+	assert.ok(
+		fs.existsSync(tscBin),
+		`找不到本地 tsc（${tscBin}）。请在本包 devDependencies 里声明 typescript —— ` +
+		'不允许静默跳过类型检查。'
+	)
 	const stdout = execFileSync(tscBin, ['--project', 'tsconfig.json', '--noEmit'], {
 		cwd: root,
 		encoding: 'utf8'

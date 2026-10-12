@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "typeRoots": [
       "./types",
-      "../dsh-bloom-theme/node_modules/@types"
+      "./node_modules/@types"
     ],
     "types": ["node"]
   },

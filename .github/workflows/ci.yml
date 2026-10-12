@@ -1,0 +1,62 @@
+name: CI
+
+# ⚠️ 2026-10-12 新增。本插件此前是五个插件里**唯一没有 CI 的** —— push 和 PR 都不跑
+# 任何检查，但它偏偏又是唯一带破坏性能力的（kill-port 真杀进程），还带着 8 个测试文件。
+# 别人往这里提 PR 完全无门禁：类型定义可以烂掉、护栏可以失效、路由可以重复注册，
+# 没有任何东西会拦。
+#
+# 与其余四个插件的 ci.yml 同构：装依赖 → 语法 → 测试 → 产物完整性。
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      # 运行时依赖仍为零，但 typescript 是 devDependency —— test/typescript.test.mjs
+      # 要跑 `tsc --noEmit` 校验对外承诺的类型定义。
+      # ⚠️ 这条依赖是 2026-10-12 才补上的：此前该测试写死了另一个仓库的 tsc 绝对路径，
+      # 找不到就静默 return，所以本地绿、CI 里等于没跑。少装这一步它会直接红，
+      # 而不是又变回假绿 —— 这是故意的。
+      - name: 安装 devDependencies
+        run: npm install --no-audit --no-fund
+
+      # 监听端口探测依赖 lsof。ubuntu-latest 镜像通常自带，但不假设 ——
+      # 探测失败会让 self-check 静默返回空端口表，测试会以「找不到靶子端口」的形式红。
+      - name: 确保 lsof 可用
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lsof || true
+
+      - name: 语法检查
+        run: npm run check
+
+      # 覆盖：护栏（核心端口 / 自身 PID / 跨源 / 方法）、路由唯一性、
+      # 真实端口释放、类型定义、监听端口解析。
+      # e2e 那条会自己起宿主，不再依赖本机有没有 DSH 在跑。
+      - name: 测试
+        run: npm test
+
+      # 发布产物完整性：files 少一个文件，装上去不报错，但插件根本不进 boot graph
+      # （只声明 dsh.client 或漏掉 cordis.patch.yml 都属于这一类）。
+      - name: 校验发布产物
+        run: |
+          set -e
+          node -e "
+            const pkg = require('./package.json')
+            const must = ['cordis.patch.yml', 'lib', 'types']
+            for (const f of must) {
+              if (!pkg.files.includes(f)) throw new Error('package.json files 缺 ' + f)
+            }
+            if (!pkg.dsh?.bundle?.patch) throw new Error('缺 dsh.bundle.patch，插件不会被插进 boot graph')
+            if (!pkg.exports?.['./client']) throw new Error('缺 exports[\"./client\"]，客户端半边加载不到')
+            console.log('✓ manifest 契约完整')
+          "
+          npm pack --dry-run

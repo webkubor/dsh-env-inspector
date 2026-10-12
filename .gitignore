@@ -1,0 +1,12 @@
+node_modules/
+*.tgz
+.DS_Store
+*.log
+
+# 2026-10-12 补：本仓此前没有 .gitignore。
+# 当初无依赖所以不需要，但 2026-10-12 给 typescript 提为 devDependency（类型定义校验
+# 之前靠写死另一个仓库的 tsc 绝对路径，CI 里等于没跑）之后，node_modules 就有了被
+# 提交进去的风险。
+#
+# package-lock.json **故意不忽略**：它锁住了那个 devDependency 的版本，
+# CI 每次装的是同一份。没有它，谁哪天手滑装成别的版本，类型校验的结果就不可复现。
