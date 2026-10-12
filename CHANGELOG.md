@@ -2,6 +2,14 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.8](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.7...v0.2.8) (2026-10-12)
+
+
+### 🐛 Bug Fixes
+
+* **release:** blocked 不再一读到就判死 ([dc3db1a](https://github.com/webkubor/dsh-env-inspector/commit/dc3db1a47133f3db29b2e839d9cfa4ea5c4672ba))
+* **release:** 删掉 checks.listForRef 那层判据，只认 mergeable_state ([cad5b82](https://github.com/webkubor/dsh-env-inspector/commit/cad5b82c03b845afe54654da9d07c937d4de8f07))
+
 ## [0.2.7](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.6...v0.2.7) (2026-10-12)
 
 
