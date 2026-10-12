@@ -2,6 +2,18 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.6](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.5...v0.2.6) (2026-10-12)
+
+
+### 🐛 Bug Fixes
+
+* **release:** 等 check 跑完再挂 auto-merge ([a1fa2e5](https://github.com/webkubor/dsh-env-inspector/commit/a1fa2e5875ea07819797330c764cbe8d5583d291))
+
+
+### 🛠️ CI / Build
+
+* **release:** 接上 release-please，发版从此零人工 ([5dc73c1](https://github.com/webkubor/dsh-env-inspector/commit/5dc73c1bb2f6f1a6d50dcd73621715df00b983e6))
+
 ## [0.2.5] - 2026-10-12
 
 ### 🛡️ 安全修复：端口释放护栏此前保护着一个已经没人监听的端口
