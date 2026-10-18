@@ -2,6 +2,13 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.9](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.8...v0.2.9) (2026-10-18)
+
+
+### 🐛 Bug Fixes
+
+* **release:** 自动解除机器人 review thread 阻塞并添加定时发版巡检 ([9f3b87f](https://github.com/webkubor/dsh-env-inspector/commit/9f3b87f7594008735bf4f447f7f8a313fee74022))
+
 ## [0.2.8](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.7...v0.2.8) (2026-10-12)
 
 
