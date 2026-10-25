@@ -2,6 +2,13 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.10](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.9...v0.2.10) (2026-10-25)
+
+
+### 📝 Documentation
+
+* 补齐 AI 可读性三件套缺口 ([0414f32](https://github.com/webkubor/dsh-env-inspector/commit/0414f32fc86011bc41007d5c534fd8a2fb27bd1b))
+
 ## [0.2.9](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.8...v0.2.9) (2026-10-18)
 
 
