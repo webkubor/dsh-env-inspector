@@ -1,5 +1,7 @@
 <h1 align="center">🖥️ dsh-env-inspector</h1>
 
+> ⚠️ **[DEPRECATED / 已弃用]** 本插件已停止维护。
+
 <p align="center">
   <strong>看清你的电脑装了什么，一键释放残留占用的开发端口。</strong><br>
   DeepSeek Harness (DSH) 环境自检与端口运维插件 —— 现代卡片仪表盘，零运行时依赖；网络出口检测仅在用户点击时发生，绝不展示秘钥明文。
@@ -143,7 +145,6 @@ npx @deepseek-ai/dsh plugin --profile <你的 profile> install
 <p align="center">
   <a href="https://github.com/webkubor/dsh-bloom-theme">🎨 主题美化</a> ·
   <a href="https://github.com/webkubor/dsh-llm-hub">⚡ 模型管理</a> ·
-  <a href="https://github.com/webkubor/dsh-mirror">🪞 用户记忆</a> ·
   <a href="https://github.com/webkubor/dsh-env-inspector">🖥️ 电脑环境</a>
 </p>
 
@@ -151,7 +152,7 @@ npx @deepseek-ai/dsh plugin --profile <你的 profile> install
 
 ```bash
 PROFILE=<你的 profile>
-npx -y @deepseek-ai/dsh plugin --profile "$PROFILE" add dsh-bloom-theme @dsh-plugins/dsh-llm-hub @dsh-plugins/dsh-user-mirror @dsh-plugins/dsh-env-inspector && PROFILE="$PROFILE" node -e 'const f=(process.env.DSH_HOME||require("os").homedir()+"/.dsh")+"/profiles/"+process.env.PROFILE+"/package.json",p=require(f),b=p.dsh.profile.bundles;for(const n of Object.keys(p.dependencies))if(/^(dsh-bloom-theme|@dsh-plugins\/)/.test(n)&&!b.includes(n))b.push(n);require("fs").writeFileSync(f,JSON.stringify(p,null,2)+"\n")'
+npx -y @deepseek-ai/dsh plugin --profile "$PROFILE" add dsh-bloom-theme @dsh-plugins/dsh-llm-hub @dsh-plugins/dsh-env-inspector && PROFILE="$PROFILE" node -e 'const f=(process.env.DSH_HOME||require("os").homedir()+"/.dsh")+"/profiles/"+process.env.PROFILE+"/package.json",p=require(f),b=p.dsh.profile.bundles;for(const n of Object.keys(p.dependencies))if(/^(dsh-bloom-theme|@dsh-plugins\/)/.test(n)&&!b.includes(n))b.push(n);require("fs").writeFileSync(f,JSON.stringify(p,null,2)+"\n")'
 ```
 
 ---

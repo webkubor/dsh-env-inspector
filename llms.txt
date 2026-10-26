@@ -23,7 +23,7 @@ dsh plugin install @dsh-plugins/dsh-env-inspector
 - **网络出口概览**：显示局域网 IP、物理网卡、公网出口 IP（用户主动检测）和显式代理配置状态。
 - **CLI 工具链健康度**：只读探测 `node`, `git`, `npm`, `pnpm`, `docker`, `python3`, `cargo` 等工具的可用性与版本。
 - **开发凭据探测**：仅只读探知环境变量中是否存在常见 AI 模型 Key（如 `DEEPSEEK_API_KEY`, `OPENAI_API_KEY` 等），永不读取明文。
-- **DSH 插件家族互导**：内置 Webkubor Suite Dock，无缝联动 Bloom Theme, LLM Hub 与 User Mirror。
+- **DSH 插件家族互导**：内置 Webkubor Suite Dock，无缝联动 Bloom Theme 与 LLM Hub。
 
 ## 仓库与生态
 - 源码: https://github.com/webkubor/dsh-env-inspector
