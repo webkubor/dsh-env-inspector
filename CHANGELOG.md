@@ -2,6 +2,13 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.2.11](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.10...v0.2.11) (2026-10-27)
+
+
+### 📝 Documentation
+
+* 图床素材引用迁移到 free-imgbed（图床仓更名 + 恢复被误删的 banner/logo） ([b58f651](https://github.com/webkubor/dsh-env-inspector/commit/b58f651fb688254bfd7049f83a80eb47ae83885e))
+
 ## [0.2.10](https://github.com/webkubor/dsh-env-inspector/compare/v0.2.9...v0.2.10) (2026-10-25)
 
 
