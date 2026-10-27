@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/webkubor/picx-images-hosting@master/dsh-env-inspector/overview.png/dsh-env-tab-final-default.png" alt="电脑环境仪表盘预览图" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/webkubor/free-imgbed@main/dsh-env-inspector/dsh-env-tab-final-default.png" alt="电脑环境仪表盘预览图" width="100%" />
   <br />
   <sub><b>电脑环境 Dashboard</b> —— 4 项核心 Hero KPI 指标行 + 现代双列网格卡片，系统状态、工具链与端口一目了然。</sub>
 </p>
@@ -52,7 +52,7 @@
   - 🔄 **联动即时自检**：终止后无需刷新浏览器，页面自动重拉自检，该端口瞬间消失，KPI 计数同步递减。
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/webkubor/picx-images-hosting@master/dsh-env-inspector/ports-expanded.png/dsh-env-tab-final-expanded.png" alt="端口展开抽屉" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/webkubor/free-imgbed@main/dsh-env-inspector/dsh-env-tab-final-expanded.png" alt="端口展开抽屉" width="100%" />
   <br />
   <sub><b>动态高位端口展开抽屉</b> —— 点击「展开 N 个端口 ▾」即可浏览全部动态端口，并支持逐一释放。</sub>
 </p>

@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/webkubor/picx-images-hosting@master/dsh-env-inspector/overview.png/dsh-env-tab-final-default.png" alt="Environment dashboard" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/webkubor/free-imgbed@main/dsh-env-inspector/dsh-env-tab-final-default.png" alt="Environment dashboard" width="100%" />
   <br />
   <sub><b>Environment dashboard</b> — a hero KPI row plus a two-column card grid: system, toolchain, and ports at a glance.</sub>
 </p>
@@ -50,7 +50,7 @@
   - 🔄 **Auto re-scan**: no browser refresh required — the port disappears and the KPI count drops immediately.
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/webkubor/picx-images-hosting@master/dsh-env-inspector/ports-expanded.png/dsh-env-tab-final-expanded.png" alt="Expanded port drawer" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/webkubor/free-imgbed@main/dsh-env-inspector/dsh-env-tab-final-expanded.png" alt="Expanded port drawer" width="100%" />
   <br />
   <sub><b>Ephemeral port drawer</b> — click "expand N ports ▾" to browse and release them individually.</sub>
 </p>
